@@ -32,18 +32,12 @@ function setup() {
 
 	console.log(stringWeb);
 	console.log('https:'+stringWeb.data.source[128]);
-
-	$.get('https://mp3.zing.vn/bai-hat/Khi-Nguoi-Minh-Yeu-Khoc-Phan-Manh-Quynh/ZW7O68U6.html',function(data)//Remember, same domain
-	{
-	    alert(data);
-	});
+	//https://mp3.zing.vn/bai-hat/Khi-Nguoi-Minh-Yeu-Khoc-Phan-Manh-Quynh/ZW7O68U6.html
 	//https://mp3.zing.vn/bai-hat/Co-Gai-M52-Huy-Tung-Viu/ZW9BID0A.html
 
 	addSongFromFile(fileSongInput);
 	slideVolume = new SlideBar(width/2, height/2-150, 200, 20, 0, 1, 0.7);
 	songNow = floor(random(0,nameSongs.length));
-
-	
 
 // this code i learn from p5js.org and chrome console
 	myAudio = createAudio('https:'+stringWeb.data.source[128]);

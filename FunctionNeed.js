@@ -10,8 +10,10 @@ function showNameSong() {
 	stroke(255);	
 	noFill();
 	textSize(27);
-	// text(nameSongs[songNow], width/2, height/2-250);
-	text(stringWeb.data.title + " - " + stringWeb.data.artist.name, width/2, height/2-250);
+	if(myAudio.src == 'https:'+stringWeb.data.source[128])
+		text(stringWeb.data.title + " - " + stringWeb.data.artist.name, width/2, height/2-250);
+	else text(nameSongs[songNow], width/2, height/2-250);
+	
 }
 
 function showCurrentState(){
