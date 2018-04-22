@@ -19,7 +19,8 @@ var slideVolume;
 var stringWeb;
 function preload(){
 	fileSongInput = loadStrings("ZingMp3link.txt");
-	stringWeb = loadJSON("https://mp3.zing.vn/xhr/media/get-source?type=audio&key=LGJHTknaziacRdcyHtFnknTkWFzBchQbS");
+	stringWeb = loadJSON("https://mp3.zing.vn/xhr/media/get-source?type=audio&key=ZGcmyLnaWzQLczhTmyDnLGTkpbzAkLmZk");
+	//LGJHTknaziacRdcyHtFnknTkWFzBchQbS
 }
 
 function setup() {
@@ -31,6 +32,12 @@ function setup() {
 
 	console.log(stringWeb);
 	console.log('https:'+stringWeb.data.source[128]);
+
+	$.get('https://mp3.zing.vn/bai-hat/Khi-Nguoi-Minh-Yeu-Khoc-Phan-Manh-Quynh/ZW7O68U6.html',function(data)//Remember, same domain
+	{
+	    alert(data);
+	});
+	//https://mp3.zing.vn/bai-hat/Co-Gai-M52-Huy-Tung-Viu/ZW9BID0A.html
 
 	addSongFromFile(fileSongInput);
 	slideVolume = new SlideBar(width/2, height/2-150, 200, 20, 0, 1, 0.7);
@@ -101,10 +108,10 @@ function keyPressed(){
 			myAudio.showControls();
 		else myAudio.hideControls();
 
-	} else if(keyCode == 66) { // B key
+	} else if(keyCode == 66) { 	// B key
 		changeBackGround();
 
-	} else if(keyCode == 71) {// G key
+	} else if(keyCode == 71) {	// G key
 		isShowGuide = !isShowGuide;
 	}
 
@@ -120,5 +127,19 @@ function mouseClicked(){
 
 function mouseDragged(){
 	slideVolume.clicked(mouseX, mouseY);	
+}
+
+function windowResized() {
+	resizeCanvas(windowWidth, windowHeight, true);
+
+  	amplitudeGraph.changeProperties(width/2, height/2, width/2, height/4);
+	fftGraph.changeProperties(width/2, height/2+height/4+50, width/2, height/4);
+
+	buts[0].changeProperties(width/2   , height/2-200, 100, 60);
+	buts[1].changeProperties(width/2+80, height/2-190, 50 , 35);
+	buts[2].changeProperties(width/2-80, height/2-190, 50 , 35);
+	buts[3].changeProperties(width/2+75, height/2-220, 40 , 20);
+
+	slideVolume.changeProperties(width/2, height/2-150, 200, 20);
 }
 

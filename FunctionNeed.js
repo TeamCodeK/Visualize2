@@ -168,21 +168,8 @@ function getChromeVersion () {
     };
 }
 
-function httpGetAsync(theUrl, callback)
-{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() { 
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            callback(xmlHttp.responseText);
-    }
-    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
-    xmlHttp.send(null);
-}
-
-function httpGet(theUrl)
-{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
-    xmlHttp.send( null );
-    return xmlHttp.responseText;
-}
+// var http = new HttpRequest();
+// var htmlSong = http.Get(inputLink).ToString();
+// var regular = @"<div id=""zplayerjs-wrapper"" class=""player"" data-xml=""(.*?)""";
+// var getJson = @"http://mp3.zing.vn" + Regex.Match(htmlSong, regular, RegexOptions.Singleline).Value.Replace(@"<div id=""zplayerjs-wrapper"" class=""player"" data-xml=""", "").Replace("\"", "");
+// var htmlJson = http.Get(getJson).ToString();

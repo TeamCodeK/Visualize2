@@ -39,4 +39,17 @@ function SlideBar(x, y, w, h, min, max, firtValue) {
 			//myAudio.elt.volume = newVolume;
 		}
 	}
+
+	this.changeProperties = function(newX, newY, newW, newH, newMin, newMax, newFirstValue){
+		this.pos.x = newX || this.pos.x;
+		this.pos.y = newY || this.pos.y;
+		this.size.x = newW || this.size.x;
+		this.size.y = newH || this.size.y;
+		
+		this.min = newMin || this.min;
+		this.max = newMax || this.max;
+		this.val = newFirstValue || this.val;
+
+		this.boxcontain = new BoxContain(this.pos.x, this.pos.y, this.size.x, this.size.y);
+	}
 }

@@ -50,4 +50,15 @@ function buttonShape(x, y, w, h, name, textsize, whenClick) {
 			this.clickBut();
 		}
 	}
+
+	this.changeProperties = function(newX, newY, newW, newH, newName, newTextSize){
+		this.pos.x = newX || this.pos.x;
+		this.pos.y = newY || this.pos.y;
+		this.size.x = newW || this.size.x;
+		this.size.y = newH || this.size.y;
+		this.name = newName || this.name;
+		this.textsize = newTextSize || this.textsize;
+
+		this.boxcontain = new BoxContain(this.pos.x, this.pos.y, this.size.x, this.size.y);
+	}
 }

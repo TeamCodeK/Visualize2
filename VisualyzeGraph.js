@@ -79,6 +79,17 @@ function AmplitudeGraph(x, y, w, h, numgraph, textInput){
 	this.changeText = function(newText){
 		this.textInput = newText;
 	}
+
+	this.changeProperties = function(newX, newY, newW, newH, newNumgraph, newText){
+		this.pos.x = newX || this.pos.x;
+		this.pos.y = newY || this.pos.y;
+		this.size.x = newW || this.size.x;
+		this.size.y = newH || this.size.y;
+		this.numgraph = newNumgraph || this.numgraph;
+		this.textInput = newText || this.textInput;
+
+		this.boxcontain = new BoxContain(this.pos.x, this.pos.y, this.size.x, this.size.y);
+	}
 }
 
 function FFTGraph(x, y, w, h, numgraph){
@@ -141,5 +152,15 @@ function FFTGraph(x, y, w, h, numgraph){
 			stroke(255);
 			this.boxcontain.show();
 		}
+	}
+
+	this.changeProperties = function(newX, newY, newW, newH, newNumgraph){
+		this.pos.x = newX || this.pos.x;
+		this.pos.y = newY || this.pos.y;
+		this.size.x = newW || this.size.x;
+		this.size.y = newH || this.size.y;
+		this.numgraph = newNumgraph || this.numgraph;
+
+		this.boxcontain = new BoxContain(this.pos.x, this.pos.y, this.size.x, this.size.y);
 	}
 }
