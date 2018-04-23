@@ -25,7 +25,7 @@ function preload(){
 function setup() {
 	createCanvas(windowWidth, windowHeight).position(0, 0)
 		.drop(getFileLocal);
-	textAlign(CENTER);
+	textAlign(CENTER, CENTER);
 	rectMode(CENTER);
 	colorMode(HSB);
 

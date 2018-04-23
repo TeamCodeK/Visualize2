@@ -18,7 +18,7 @@ function SlideBar(x, y, w, h, min, max, firtValue) {
 		noFill();
 		rect(this.pos.x, this.pos.y, this.size.x, this.size.y);
 		textSize(this.size.y);
-		text("Volume", this.pos.x, this.pos.y+this.size.y/2);
+		text("Volume", this.pos.x, this.pos.y);
 
 		// show box contain
 		if(showBoxContain){

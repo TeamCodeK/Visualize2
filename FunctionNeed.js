@@ -15,7 +15,7 @@ function showNameSong() {
 	stroke(255);	
 	noFill();
 	textSize(27);
-	text(jsonWeb_song_Now.data.title + " - " + jsonWeb_song_Now.data.artists_names, width/2, height/2-250);
+	text(jsonWeb_song_Now.data.title + " - " + jsonWeb_song_Now.data.artists_names, width/2, buts[0].pos.y-70);
 }
 
 function showCurrentState(){
@@ -109,17 +109,23 @@ function showGuide(){
 	fill(color('rgba(51, 51, 51, 0.5)'));
 	strokeWeight(1);
 	stroke(255);
-	rect(150+5, height-80, 300, 150);
+	rect(150+5, height-100, 300, 200);
 	
 	textSize(15);
+	textAlign(LEFT, CENTER);
 	noFill();
-	var x = 150+5;
-	var y = height-80-75+15;
+	var x = 10;
+	var y = height-80-135+15;
 	text('drag image to this web to change background', x, y+=20);
 	text('B : change back ground auto', x, y+=20);
 	text('C : show / hide controls', x, y+=20);
+	text('N : next song', x, y+=20);
+	text('P : pre song', x, y+=20);
+	text('R : random song', x, y+=20);
+	text('Space: play / pause', x, y+=20);
 	text('Left-Right arrow : jump 5s', x, y+=20);
 	text('G : Open / Close Guide', x, y+=20);
+	textAlign(CENTER, CENTER);
 }
 
 function getChromeVersion () {
