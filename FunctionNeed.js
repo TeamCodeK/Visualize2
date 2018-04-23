@@ -3,7 +3,7 @@ function addSongFromIdZing(id){
  			+id, function(dataJson){
  					var medialink = 'https:'+ dataJson.data.source[128];
  					jsonWeb_song_Now = dataJson;
- 					myAudio.src = medialink;
+ 					myAudio.elt.src = medialink;
  					imageSong = loadImage(jsonWeb_song_Now.data.thumbnail);
  					console.log(jsonWeb_song_Now.data.title+"\n"+medialink);
  					console.log("avatar image\n"+jsonWeb_song_Now.data.thumbnail);
