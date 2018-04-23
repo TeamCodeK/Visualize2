@@ -1,8 +1,13 @@
-function addSongFromFile(inputString){
-	for(var i = 0; i < inputString.length; i+=2){
-		nameSongs.push(inputString[i]);
-		linkSongs.push(inputString[i+1]);
-	}
+function addSongFromIdZing(id){
+	loadJSON("https://mp3.zing.vn/xhr/media/get-source?type=audio&key="
+ 			+id, function(dataJson){
+ 					var medialink = 'https:'+ dataJson.data.source[128];
+ 					jsonWeb_song_Now = dataJson;
+ 					myAudio.src = medialink;
+ 					backG = loadImage(jsonWeb_song_Now.data.artist.thumbnail);
+ 					console.log(jsonWeb_song_Now.data.title+"\n"+medialink);
+ 					console.log("avatar image\n"+jsonWeb_song_Now.data.thumbnail);
+ 				});
 }
 
 function showNameSong() {
@@ -10,9 +15,7 @@ function showNameSong() {
 	stroke(255);	
 	noFill();
 	textSize(27);
-	if(myAudio.src == 'https:'+stringWeb.data.source[128])
-		text(stringWeb.data.title + " - " + stringWeb.data.artist.name, width/2, height/2-250);
-	else text(nameSongs[songNow], width/2, height/2-250);
+	text(jsonWeb_song_Now.data.title + " - " + jsonWeb_song_Now.data.artists_names, width/2, height/2-250);
 	
 }
 
@@ -63,11 +66,10 @@ function NextPre(nextOrPre){
 		if(nextOrPre == 'next') songNow++;
 		else songNow--;
 
-		if(songNow >= nameSongs.length) songNow -= nameSongs.length;
-		if(songNow < 0) songNow += nameSongs.length;
+		if(songNow >= jsonFile_all_ID.data.length) songNow -= jsonFile_all_ID.data.length;
+		if(songNow < 0) songNow += jsonFile_all_ID.data.length;
 
-		// myAudio.src = 'music/'+ nameSongs[songNow];	
-		myAudio.src = linkSongs[songNow];
+		addSongFromIdZing(jsonFile_all_ID.data[songNow].id);
 }
 
 function LoopMusic(isLooping){
@@ -84,49 +86,6 @@ function LoopMusic(isLooping){
 function getFileLocal(file) {
 	if (file.type === 'image') {
 		backG = createImg(file.data).hide();
-
-	} else if(file.type === 'text'){
-		// get data 
-		var nameS = [], linkS = [];
-		var index = 0;
-		var putToName = true;
-
-		for(var i = 0; i < file.data.length; i++)
-		{
-			if(file.data[i] != "\n")
-			{
-				if(putToName)
-					nameS[index] = nameS[index]?(nameS[index] += file.data[i]):file.data[i];
-				else linkS[index] = linkS[index]?(linkS[index] += file.data[i]):file.data[i];
-
-			} else if(file.data[i+1] != "\n")
-			{
-				if(putToName){
-					putToName = false;
-				}
-				else {
-					putToName = true;
-					index++;
-				}
-			} else continue;
-		}
-
-		// reset value
-		nameSongs = [];
-		linkSongs = [];
-
-		// add value from data
-		console.log(nameS);
-		console.log(linkS);
-		for(var i = 0; i < nameS.length; i++){
-			nameSongs[i] = nameS[i].toString();
-			linkSongs[i] = linkS[i].toString();
-		}
-		console.log(nameSongs);
-		console.log(linkSongs);
-
-		// play
-		NextPre('next');
 
 	}else{
 		alert('File type not support , Please choose another file');
@@ -169,9 +128,3 @@ function getChromeVersion () {
         patch: pieces[4]
     };
 }
-
-// var http = new HttpRequest();
-// var htmlSong = http.Get(inputLink).ToString();
-// var regular = @"<div id=""zplayerjs-wrapper"" class=""player"" data-xml=""(.*?)""";
-// var getJson = @"http://mp3.zing.vn" + Regex.Match(htmlSong, regular, RegexOptions.Singleline).Value.Replace(@"<div id=""zplayerjs-wrapper"" class=""player"" data-xml=""", "").Replace("\"", "");
-// var htmlJson = http.Get(getJson).ToString();

@@ -1,7 +1,8 @@
 var amplitudeGraph;
 var fftGraph;
 var showBoxContain = false;
-var nameInCircle = "Visualyze\nDemo";
+var buts = [];
+var slideVolume;
 
 var backG;
 var backgNow;
@@ -9,18 +10,15 @@ var isShowGuide = true;
 
 var myAudio;
 var songNow;
-var nameSongs = [];
-var linkSongs = [];
-var fileSongInput;
 
-var buts = [];
-var slideVolume;
+var jsonWeb_song_Now;
+var jsonFile_all_ID;
 
-var stringWeb;
 function preload(){
-	fileSongInput = loadStrings("ZingMp3link.txt");
-	stringWeb = loadJSON("https://mp3.zing.vn/xhr/media/get-source?type=audio&key=ZGcmyLnaWzQLczhTmyDnLGTkpbzAkLmZk");
-	//LGJHTknaziacRdcyHtFnknTkWFzBchQbS
+	// get data "name"&"id song" from file
+	jsonFile_all_ID = loadJSON("ZingMp3_IDSong.txt", function(dataJsonFile){
+		console.log(dataJsonFile);
+	});	
 }
 
 function setup() {
@@ -30,50 +28,48 @@ function setup() {
 	rectMode(CENTER);
 	colorMode(HSB);
 
-	console.log(stringWeb);
-	console.log('https:'+stringWeb.data.source[128]);
-	//https://mp3.zing.vn/bai-hat/Khi-Nguoi-Minh-Yeu-Khoc-Phan-Manh-Quynh/ZW7O68U6.html
-	//https://mp3.zing.vn/bai-hat/Co-Gai-M52-Huy-Tung-Viu/ZW9BID0A.html
-
-	addSongFromFile(fileSongInput);
 	slideVolume = new SlideBar(width/2, height/2-150, 200, 20, 0, 1, 0.7);
-	songNow = floor(random(0,nameSongs.length));
+	songNow = floor(random(0,jsonFile_all_ID.data.length));
 
-// this code i learn from p5js.org and chrome console
-	myAudio = createAudio('https:'+stringWeb.data.source[128]);
+	// this code i learn from p5js.org and chrome console
+	myAudio = createAudio();
 	myAudio.autoplay(true);	
 	myAudio.loop(true);
 	myAudio.volume(slideVolume.val);
 	myAudio.connect(p5.soundOut);
-	/* another way to load music use new Audio() 
-	https://github.com/processing/p5.js-sound/issues/225*/
 
-// prepare all object
+	// get data from web ang .. PLAY it
+	addSongFromIdZing(jsonFile_all_ID.data[songNow].id);
+
+	// prepare all object
 	backgNow = floor(random(1, 25));
-	// backG = loadImage("image/BackG"+backgNow+".jpg");
-	backG = loadImage(stringWeb.data.artist.thumbnail);
 
-	amplitudeGraph = new AmplitudeGraph(width/2, height/2, width/2, height/4, 100, nameInCircle);
+	amplitudeGraph = new AmplitudeGraph(width/2, height/2, width/2, height/4, 100, "Visualyze\nDemo");
 	fftGraph = new FFTGraph(width/2, height/2+height/4+50, width/2, height/4, 64);
 
 	buts.push(new buttonShape(width/2	, height/2-200, 100, 60, "Play"  , 27, function(){PlayPause();}));
 	buts.push(new buttonShape(width/2+80, height/2-190, 50 , 35, "Next"  , 15, function(){NextPre('next');}));
 	buts.push(new buttonShape(width/2-80, height/2-190, 50 , 35, "Pre"   , 15, function(){NextPre('pre');}));
 	buts.push(new buttonShape(width/2+75, height/2-220, 40 , 20, "noLoop", 10, function(){LoopMusic(myAudio.elt.loop);}));
+	buts.push(new buttonShape(width/2-75, height/2-220, 40 , 20, "Random", 10, function(){
+															songNow = floor(random(jsonFile_all_ID.data.length));
+															addSongFromIdZing(jsonFile_all_ID.data[songNow].id);
+																				}));
 }
 
 function draw(){
-	image(backG, 0, 0, width, height, 0, 0, backG.width, backG.height);
-	if(myAudio.elt.ended && !myAudio.elt.loop) NextPre("next");
+	if(jsonWeb_song_Now){
+		image(backG, 0, 0, width, height, 0, 0, backG.width, backG.height);
+		if(myAudio.elt.ended && !myAudio.elt.loop) NextPre("next");
 
-	showCurrentState();
-	showNameSong();
-	showTime(amplitudeGraph.pos.x+amplitudeGraph.size.x/2-20, amplitudeGraph.pos.y+20);
-	slideVolume.show();
-
-	for(var i = 0; i < buts.length; i++){
-		buts[i].run();
+		showCurrentState();
+		showNameSong();
+		showTime(amplitudeGraph.pos.x+amplitudeGraph.size.x/2-20, amplitudeGraph.pos.y+20);
+		slideVolume.show();
 	}
+
+	for(var i = 0; i < buts.length; i++)
+		buts[i].run();
 
 	amplitudeGraph.run();
 	fftGraph.run();
@@ -133,7 +129,7 @@ function windowResized() {
 	buts[1].changeProperties(width/2+80, height/2-190, 50 , 35);
 	buts[2].changeProperties(width/2-80, height/2-190, 50 , 35);
 	buts[3].changeProperties(width/2+75, height/2-220, 40 , 20);
+	buts[4].changeProperties(width/2-75, height/2-220, 40 , 20);
 
 	slideVolume.changeProperties(width/2, height/2-150, 200, 20);
 }
-

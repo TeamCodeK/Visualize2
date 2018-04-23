@@ -32,7 +32,7 @@ function AmplitudeGraph(x, y, w, h, numgraph, textInput){
 			line(i*dis+(this.pos.x-this.size.x/2), this.pos.y-y, 
 				(i+1)*dis+(this.pos.x-this.size.x/2), this.pos.y-y2);
 		}
-		
+
 		// circle at end graph
 		fill(255);
 		ellipse(this.pos.x+this.size.x/2, this.pos.y-y, 12, 12);
@@ -58,6 +58,7 @@ function AmplitudeGraph(x, y, w, h, numgraph, textInput){
 			textSize(y/2+0.5);
 			text(this.textInput, this.pos.x, this.pos.y);
 		}
+		
 	}
 
 	this.show2= function(){
@@ -80,13 +81,15 @@ function AmplitudeGraph(x, y, w, h, numgraph, textInput){
 		this.textInput = newText;
 	}
 
-	this.changeProperties = function(newX, newY, newW, newH, newNumgraph, newText){
+	this.changeProperties = function(newX, newY, newW, newH, newNumgraph, newText, newIma){
 		this.pos.x = newX || this.pos.x;
 		this.pos.y = newY || this.pos.y;
 		this.size.x = newW || this.size.x;
 		this.size.y = newH || this.size.y;
 		this.numgraph = newNumgraph || this.numgraph;
 		this.textInput = newText || this.textInput;
+		if(newIma)
+			this.ima = createImg(newIma).hide();
 
 		this.boxcontain = new BoxContain(this.pos.x, this.pos.y, this.size.x, this.size.y);
 	}
