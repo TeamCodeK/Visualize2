@@ -21,8 +21,6 @@ function buttonShape(x, y, w, h, name, textsize, whenClick) {
 		rect(this.pos.x, this.pos.y, this.size.x, this.size.y);
 		textSize(this.textsize);
 		text(this.name, this.pos.x, this.pos.y+this.size.y/8); // plus this.size.y/8 to CENTER text
-
-		//this.boxcontain.show();
 	}
 
 	this.update = function(){

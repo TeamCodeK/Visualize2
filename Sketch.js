@@ -7,6 +7,7 @@ var slideVolume;
 var backG;
 var backgNow;
 var isShowGuide = true;
+var imageSong;
 
 var myAudio;
 var songNow;
@@ -43,6 +44,7 @@ function setup() {
 
 	// prepare all object
 	backgNow = floor(random(1, 25));
+	backG = loadImage("image/BackG"+backgNow+".jpg");
 
 	amplitudeGraph = new AmplitudeGraph(width/2, height/2, width/2, height/4, 100, "Visualyze\nDemo");
 	fftGraph = new FFTGraph(width/2, height/2+height/4+50, width/2, height/4, 64);
@@ -53,22 +55,25 @@ function setup() {
 	buts.push(new buttonShape(width/2+75, height/2-220, 40 , 20, "noLoop", 10, function(){LoopMusic(myAudio.elt.loop);}));
 	buts.push(new buttonShape(width/2-75, height/2-220, 40 , 20, "Random", 10, function(){
 															songNow = floor(random(jsonFile_all_ID.data.length));
-															addSongFromIdZing(jsonFile_all_ID.data[songNow].id);
-																				}));
+															addSongFromIdZing(jsonFile_all_ID.data[songNow].id);}));
 }
 
 function draw(){
 	if(jsonWeb_song_Now){
-		image(backG, 0, 0, width, height, 0, 0, backG.width, backG.height);
+		// background
+		image(backG, 0, 0, width, height, 0, 0, backG.width, backG.height);	
+		// auto play next song
 		if(myAudio.elt.ended && !myAudio.elt.loop) NextPre("next");
 
+		showImagePlayBut(); // show image at play button (demo)
 		showCurrentState();
 		showNameSong();
 		showTime(amplitudeGraph.pos.x+amplitudeGraph.size.x/2-20, amplitudeGraph.pos.y+20);
 		slideVolume.show();
 	}
 
-	for(var i = 0; i < buts.length; i++)
+	buts[0].show(); // do not update(change color when mouse on button play)
+	for(var i = 1; i < buts.length; i++)
 		buts[i].run();
 
 	amplitudeGraph.run();

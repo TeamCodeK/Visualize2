@@ -4,7 +4,7 @@ function addSongFromIdZing(id){
  					var medialink = 'https:'+ dataJson.data.source[128];
  					jsonWeb_song_Now = dataJson;
  					myAudio.src = medialink;
- 					backG = loadImage(jsonWeb_song_Now.data.artist.thumbnail);
+ 					imageSong = loadImage(jsonWeb_song_Now.data.artist.thumbnail);
  					console.log(jsonWeb_song_Now.data.title+"\n"+medialink);
  					console.log("avatar image\n"+jsonWeb_song_Now.data.thumbnail);
  				});
@@ -16,7 +16,6 @@ function showNameSong() {
 	noFill();
 	textSize(27);
 	text(jsonWeb_song_Now.data.title + " - " + jsonWeb_song_Now.data.artists_names, width/2, height/2-250);
-	
 }
 
 function showCurrentState(){
@@ -54,6 +53,13 @@ function showTime(x, y){
 	stroke(255);
 	noFill();
 	text(m+":"+s +" / "+ Mi+":"+Se, x, y);
+}
+
+function showImagePlayBut(){
+	if(mouseX > buts[0].pos.x-buts[0].size.x/2 && mouseX < buts[0].pos.x+buts[0].size.x/2
+	&& mouseY > buts[0].pos.y-buts[0].size.y/2 && mouseY < buts[0].pos.y+buts[0].size.y/2)
+		image(imageSong, buts[0].pos.x-buts[0].size.x/2, buts[0].pos.y-buts[0].size.y/2,
+					 buts[0].size.x, buts[0].size.y);
 }
 
 function PlayPause(){
