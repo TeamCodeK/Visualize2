@@ -72,8 +72,9 @@ function NextPre(nextOrPre){
 		if(nextOrPre == 'next') songNow++;
 		else songNow--;
 
-		if(songNow >= jsonFile_all_ID.data.length) songNow -= jsonFile_all_ID.data.length;
-		if(songNow < 0) songNow += jsonFile_all_ID.data.length;
+		var len = jsonFile_all_ID.data.length;
+		if(songNow >= len) songNow -= len;
+		if(songNow < 0) songNow += len;
 
 		addSongFromIdZing(jsonFile_all_ID.data[songNow].id);
 }

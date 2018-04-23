@@ -54,7 +54,10 @@ function setup() {
 	buts.push(new buttonShape(width/2-80, height/2-190, 50 , 35, "Pre"   , 15, function(){NextPre('pre');}));
 	buts.push(new buttonShape(width/2+75, height/2-220, 40 , 20, "noLoop", 10, function(){LoopMusic(myAudio.elt.loop);}));
 	buts.push(new buttonShape(width/2-75, height/2-220, 40 , 20, "Random", 10, function(){
-															songNow = floor(random(jsonFile_all_ID.data.length));
+															var len = jsonFile_all_ID.data.length
+															songNow += floor(random(len));
+															if(songNow >= len) songNow -= len;
+															if(songNow < 0) songNow += len;
 															addSongFromIdZing(jsonFile_all_ID.data[songNow].id);}));
 }
 
@@ -108,6 +111,15 @@ function keyPressed(){
 
 	} else if(keyCode == 71) {	// G key
 		isShowGuide = !isShowGuide;
+
+	} else if(keyCode == 78) { // N key
+		NextPre("next");
+
+	} else if(keyCode == 80) { // P key
+		NextPre("pre");
+
+	} else if(keyCode == 82) { // R key
+		buts[4].clickBut();
 	}
 
 }
