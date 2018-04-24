@@ -61,6 +61,22 @@ function showImageArtist(){
 		image(imageSong, mouseX, mouseY);
 }
 
+function animationAvatar(){
+	if(mouseX > buts[0].pos.x-buts[0].size.x/2 && mouseX < buts[0].pos.x+buts[0].size.x/2
+	&& mouseY > buts[0].pos.y-buts[0].size.y/2 && mouseY < buts[0].pos.y+buts[0].size.y/2
+	&& imageSong)
+	{
+		push();
+		translate(mouseX+imageSong.width/2, mouseY+imageSong.height/2);
+
+		if(!myAudio.elt.paused && myAudio.elt.duration > 0)
+			rotate(((millis()/700)%180));
+		image(imageSong, 0, 0);
+
+		pop();
+	}
+}
+
 function PlayPause(){
 	if(myAudio.elt.paused && myAudio.elt.duration > 0)
 		myAudio.elt.play();
@@ -108,22 +124,22 @@ function showGuide(){
 	fill(color('rgba(51, 51, 51, 0.5)'));
 	strokeWeight(1);
 	stroke(255);
-	rect(170+5, height-105, 350, 200);
+	rect(145, height-105, 280, 200);
 	
 	textSize(15);
 	textAlign(LEFT, CENTER);
 	noFill();
 	var x = 10;
-	var y = height-80-135+15;
-	text('drag image to this web to change background', x, y+=20);
-	text('B : change back ground auto', x, y+=20);
-	text('C : show / hide controls', x, y+=20);
-	text('N : next song', x, y+=20);
-	text('P : pre song', x, y+=20);
-	text('R : random song', x, y+=20);
-	text('Space: play / pause', x, y+=20);
-	text('Left-Right arrow : jump 5s', x, y+=20);
-	text('G : Open / Close Guide', x, y+=20);
+	var y = height-205;
+	text('            HELP (press G to hide)', x, y+=20);
+	text('DRAG image here to change background', x, y+=20);
+	text('       B :     change back ground auto', x, y+=20);
+	text('       C :     show / hide controls', x, y+=20);
+	text('       N :     next song', x, y+=20);
+	text('       P :     pre song', x, y+=20);
+	text('       R :     random song', x, y+=20);
+	text('      Space :  play / pause', x, y+=20);
+	text('   Left-Right arrow : jump 5s', x, y+=20);
 	textAlign(CENTER, CENTER);
 }
 

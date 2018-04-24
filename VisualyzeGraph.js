@@ -101,22 +101,20 @@ function FFTGraph(x, y, w, h, numgraph){
 	this.graph;
 	this.fft = new p5.FFT(0.7, numgraph);
 	this.boxcontain = new BoxContain(this.pos.x, this.pos.y, this.size.x, this.size.y);
+	this.mode = 1;
 
 	this.update = function(){
 		this.graph = this.fft.analyze();
 	}
 
-	this.show = function(){
+	this.show2 = function(){
 		var y;
 		var barWidth = this.size.x/(this.graph.length-15);
 		noStroke();
 		strokeWeight(barWidth-1);
 
-		beginShape();
 		for(var i = 0; i < this.graph.length-15; i++){
 			y = map(this.graph[i], 0, 255, 0, this.size.y);
-
-			vertex(i*barWidth+(this.pos.x-this.size.x/2), this.pos.y+this.size.y/2-y);
 
 			stroke(color('hsba('+ (255-this.graph[i]) +', 100%, 100%, 0.7)'));
 			var x1 = i*barWidth+(this.pos.x-this.size.x/2)+barWidth/2;
@@ -125,13 +123,9 @@ function FFTGraph(x, y, w, h, numgraph){
 			var y2 = this.pos.y+this.size.y/2;
 			line(x1, y1, x2, y2);
 		}
-		noFill();
-		stroke(255);
-		strokeWeight(3)
-		endShape();
 	}
 
-	this.show2 = function(){
+	this.show1 = function(){
 		var barWidth = this.size.x/(this.graph.length-15);
 		strokeWeight(barWidth/1.5);
 
@@ -147,13 +141,24 @@ function FFTGraph(x, y, w, h, numgraph){
 
 	this.run = function(){
 		this.update();
-		this.show();
+		switch(this.mode){
+			case 1: this.show1();break;
+			case 2: this.show2();break;
+		}
 
 		// show box contain
 		if(showBoxContain){
 			strokeWeight(1);
 			stroke(255);
 			this.boxcontain.show();
+		}
+	}
+
+	this.clicked = function(x, y){
+		if(x > this.pos.x - this.size.x/2 && x < this.pos.x + this.size.x/2
+		&& y > this.pos.y - this.size.y/2 && y < this.pos.y + this.size.y/2){
+			if(this.mode == 1) this.mode = 2;
+			else this.mode = 1;
 		}
 	}
 

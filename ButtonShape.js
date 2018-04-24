@@ -23,9 +23,9 @@ function buttonShape(x, y, w, h, name, textsize, whenClick) {
 		text(this.name, this.pos.x, this.pos.y); // plus this.size.y/8 to CENTER text
 	}
 
-	this.update = function(){
-		if(mouseX > this.pos.x - this.size.x/2 && mouseX < this.pos.x + this.size.x/2
-		&& mouseY > this.pos.y - this.size.y/2 && mouseY < this.pos.y + this.size.y/2){
+	this.update = function(x, y){
+		if(x > this.pos.x - this.size.x/2 && x < this.pos.x + this.size.x/2
+		&& y > this.pos.y - this.size.y/2 && y < this.pos.y + this.size.y/2){
 			this.hightlight = true;
 		} else this.hightlight = false;
 	}

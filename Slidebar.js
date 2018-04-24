@@ -7,18 +7,15 @@ function SlideBar(x, y, w, h, min, max, firtValue) {
 	this.boxcontain = new BoxContain(this.pos.x, this.pos.y, this.size.x, this.size.y);
 
 	this.show = function(){
-		strokeWeight(1);
-		stroke(255);
-
-		fill(color('rgba(0, 0, 0, 0.6)'));
+		stroke(255-map(this.val, 0, 1, 0, 255), 255, 255);
+		strokeWeight(2);
 		var ConvertValue = map(this.val, this.min, this.max, 0, this.size.x);
-		var valuePos = this.pos.x - this.size.x/2 + ConvertValue/2;
-		rect(valuePos, this.pos.y, ConvertValue, this.size.y);
+		var valuePos = this.pos.x - this.size.x/2 + ConvertValue;
+		ellipse(valuePos, this.pos.y, this.size.y, this.size.y);
+		line(this.pos.x-this.size.x/2, this.pos.y, valuePos-this.size.y/2 , this.pos.y);
 
-		noFill();
-		rect(this.pos.x, this.pos.y, this.size.x, this.size.y);
-		textSize(this.size.y);
-		text("Volume", this.pos.x, this.pos.y);
+		stroke(255);
+		line(valuePos+this.size.y/2 , this.pos.y, this.pos.x+this.size.x/2, this.pos.y)
 
 		// show box contain
 		if(showBoxContain){

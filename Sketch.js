@@ -28,6 +28,7 @@ function setup() {
 	textAlign(CENTER, CENTER);
 	rectMode(CENTER);
 	colorMode(HSB);
+	imageMode(CENTER);
 
 	slideVolume = new SlideBar(width/2, height/2-150, 200, 20, 0, 1, 0.7);
 	songNow = floor(random(0,jsonFile_all_ID.data.length));
@@ -64,7 +65,7 @@ function setup() {
 function draw(){
 	if(jsonWeb_song_Now){
 		// background
-		image(backG, 0, 0, width, height, 0, 0, backG.width, backG.height);	
+		image(backG, width/2, height/2, width, height, 0, 0, backG.width, backG.height);	
 		// auto play next song
 		if(myAudio.elt.ended && !myAudio.elt.loop) NextPre("next");
 
@@ -77,7 +78,7 @@ function draw(){
 	for(var i = 0; i < buts.length; i++)
 		buts[i].run();
 
-	showImageArtist(); // show image at play button (demo)
+	animationAvatar(); // show image at play button (demo)
 
 	amplitudeGraph.run();
 	fftGraph.run();
@@ -129,6 +130,7 @@ function mouseClicked(){
 	}
 
 	slideVolume.clicked(mouseX, mouseY);
+	fftGraph.clicked(mouseX, mouseY);
 }
 
 function mouseDragged(){
