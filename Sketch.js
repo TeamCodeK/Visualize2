@@ -54,8 +54,8 @@ function setup() {
 	buts.push(new buttonShape(width/2-80, height/2-190, 50 , 35, "Pre"   , 15, function(){NextPre('pre');}));
 	buts.push(new buttonShape(width/2+75, height/2-220, 40 , 20, "noLoop", 10, function(){LoopMusic(myAudio.elt.loop);}));
 	buts.push(new buttonShape(width/2-75, height/2-220, 40 , 20, "Random", 10, function(){
-															var len = jsonFile_all_ID.data.length
-															songNow += floor(random(len));
+															var len = jsonFile_all_ID.data.length;
+															songNow += floor(random(0, len));
 															if(songNow >= len) songNow -= len;
 															if(songNow < 0) songNow += len;
 															addSongFromIdZing(jsonFile_all_ID.data[songNow].id);}));
@@ -68,16 +68,16 @@ function draw(){
 		// auto play next song
 		if(myAudio.elt.ended && !myAudio.elt.loop) NextPre("next");
 
-		showImagePlayBut(); // show image at play button (demo)
 		showCurrentState();
 		showNameSong();
 		showTime(amplitudeGraph.pos.x+amplitudeGraph.size.x/2-20, amplitudeGraph.pos.y+20);
 		slideVolume.show();
 	}
 
-	buts[0].show(); // do not update(change color when mouse on button play)
-	for(var i = 1; i < buts.length; i++)
+	for(var i = 0; i < buts.length; i++)
 		buts[i].run();
+
+	showImageArtist(); // show image at play button (demo)
 
 	amplitudeGraph.run();
 	fftGraph.run();
@@ -121,7 +121,6 @@ function keyPressed(){
 	} else if(keyCode == 82) { // R key
 		buts[4].clickBut();
 	}
-
 }
 
 function mouseClicked(){

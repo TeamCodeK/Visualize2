@@ -3,7 +3,7 @@ function addSongFromIdZing(id){
  			+id, function(dataJson){
  					var medialink = 'https:'+ dataJson.data.source[128];
  					jsonWeb_song_Now = dataJson;
- 					myAudio.elt.src = medialink;
+ 					myAudio.src = medialink;
  					imageSong = loadImage(jsonWeb_song_Now.data.thumbnail);
  					console.log(jsonWeb_song_Now.data.title+"\n"+medialink);
  					console.log("avatar image\n"+jsonWeb_song_Now.data.thumbnail);
@@ -55,11 +55,10 @@ function showTime(x, y){
 	text(m+":"+s +" / "+ Mi+":"+Se, x, y);
 }
 
-function showImagePlayBut(){
+function showImageArtist(){
 	if(mouseX > buts[0].pos.x-buts[0].size.x/2 && mouseX < buts[0].pos.x+buts[0].size.x/2
 	&& mouseY > buts[0].pos.y-buts[0].size.y/2 && mouseY < buts[0].pos.y+buts[0].size.y/2)
-		image(imageSong, buts[0].pos.x-buts[0].size.x/2, buts[0].pos.y-buts[0].size.y/2,
-					 buts[0].size.x, buts[0].size.y);
+		image(imageSong, mouseX, mouseY);
 }
 
 function PlayPause(){
@@ -109,7 +108,7 @@ function showGuide(){
 	fill(color('rgba(51, 51, 51, 0.5)'));
 	strokeWeight(1);
 	stroke(255);
-	rect(150+5, height-100, 300, 200);
+	rect(170+5, height-105, 350, 200);
 	
 	textSize(15);
 	textAlign(LEFT, CENTER);
