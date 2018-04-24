@@ -121,7 +121,7 @@ function changeBackGround(){
 }
 
 function showGuide(){
-	fill(color('rgba(51, 51, 51, 0.5)'));
+	fill(color('rgba(51, 51, 51, 0.3)'));
 	strokeWeight(1);
 	stroke(255);
 	rect(145, height-105, 280, 200);
@@ -131,7 +131,9 @@ function showGuide(){
 	noFill();
 	var x = 10;
 	var y = height-205;
-	text('            HELP (press G to hide)', x, y+=20);
+	
+	text('            HELP (press G : on / off)', x, y+=20);
+	stroke(color('rgb(150, 150, 150)'));
 	text('DRAG image here to change background', x, y+=20);
 	text('       B :     change back ground auto', x, y+=20);
 	text('       C :     show / hide controls', x, y+=20);

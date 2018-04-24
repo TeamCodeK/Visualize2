@@ -120,19 +120,19 @@ function FFTGraph(x, y, w, h, numgraph){
 			var x1 = i*barWidth+(this.pos.x-this.size.x/2)+barWidth/2;
 			var y1 = this.pos.y+this.size.y/2-y;
 			var x2 = x1;
-			var y2 = this.pos.y+this.size.y/2;
+			var y2 = this.pos.y+this.size.y/2+1;
 			line(x1, y1, x2, y2);
 		}
 	}
 
 	this.show1 = function(){
 		var barWidth = this.size.x/(this.graph.length-15);
-		strokeWeight(barWidth/1.5);
+		strokeWeight(barWidth-1);
 
 		for(var i = 0; i < this.graph.length-15; i++){
 			var len = map(this.graph[i], 0, 255, 0, this.size.y);
 			
-			stroke(color('hsba('+ (255-this.graph[i]) +', 100%, 100%, 1)'));
+			stroke(color('hsba('+ (255-this.graph[i]) +', 100%, 100%, 0.7)'));
 			var x1 = i*barWidth+(this.pos.x-this.size.x/2)+barWidth/2;
 			var y1 = this.pos.y;
 			line(x1, y1-len/2-1, x1, y1+len/2);
