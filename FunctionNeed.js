@@ -104,7 +104,7 @@ function getFileLocal(filein) {
 	if (filein.type === 'image') {
 		backG = createImg(filein.data).hide();
 
-	} else if(filein.type === 'audio'){
+	} else if(filein.type === 'audio' || filein.type === 'video'){
 		var url = URL.createObjectURL(filein.file);
         console.log(filein.file);
         myAudio.src = url;
