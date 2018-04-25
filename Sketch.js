@@ -16,21 +16,7 @@ var nameSongNow;
 var jsonWeb_song_Now;
 var jsonFile_all_ID;
 
-function preload(){
-	// get data "name"&"id song" from file
-	jsonFile_all_ID = loadJSON("ZingMp3_IDSong.txt", function(dataJsonFile){
-		console.log(dataJsonFile);
-	});	
-}
-
-function setup() {
-	createCanvas(windowWidth, windowHeight).position(0, 0)
-		.drop(getFileLocal);
-	textAlign(CENTER, CENTER);
-	rectMode(CENTER);
-	colorMode(HSB);
-	imageMode(CENTER);
-
+function createFirstAll(){
 	slideVolume = new SlideBar(width/2, height/2-150, 200, 20, 0, 1, 0.7);
 	songNow = floor(random(0,jsonFile_all_ID.data.length));
 
@@ -53,7 +39,7 @@ function setup() {
 	amplitudeGraph = new AmplitudeGraph(width/2, height/2, width/2, height/4, 100, "Visualyze\nDemo");
 	fftGraph = new FFTGraph(width/2, height/2+height/4+50, width/2, height/4, 64);
 
-	buts.push(new buttonShape(width/2	, height/2-200, 100, 60, "Play"  , 27, function(){PlayPause();}));
+	buts.push(new buttonShape(width/2	, height/2-200, 100, 60, "Loading"  , 27, function(){PlayPause();}));
 	buts.push(new buttonShape(width/2+80, height/2-190, 50 , 35, "Next"  , 15, function(){NextPre('next');}));
 	buts.push(new buttonShape(width/2-80, height/2-190, 50 , 35, "Pre"   , 15, function(){NextPre('pre');}));
 	buts.push(new buttonShape(width/2+75, height/2-220, 40 , 20, "noLoop", 10, function(){LoopMusic(myAudio.elt.loop);}));
@@ -62,32 +48,56 @@ function setup() {
 															songNow += floor(random(0, len));
 															if(songNow >= len) songNow -= len;
 															if(songNow < 0) songNow += len;
-															addSongFromIdZing(jsonFile_all_ID.data[songNow].id);}));
+																addSongFromIdZing(jsonFile_all_ID.data[songNow].id);}));
+}
+
+function setup() {
+	createCanvas(windowWidth, windowHeight).position(0, 0)
+		.drop(getFileLocal);
+	background(10);
+	textAlign(CENTER, CENTER);
+	rectMode(CENTER);
+	colorMode(HSB);
+	imageMode(CENTER);
+	
+	// load data "name"&"id song" from file with callback
+	jsonFile_all_ID = loadJSON("ZingMp3_IDSong.txt", "json",
+		// loaded
+		function(dataJsonFile){ 
+			console.log(dataJsonFile);
+			createFirstAll();
+		}, 
+		// error
+		function(){
+			alert("ERROR while load data from server");
+		}
+	);	
 }
 
 function draw(){
 	if(jsonWeb_song_Now){
-		// background
-		image(backG, width/2, height/2, width, height, 0, 0, backG.width, backG.height);	
-		// auto play next song
+		image(backG, width/2, height/2, width, height, 0, 0, backG.width, backG.height);
 		if(myAudio.elt.ended && !myAudio.elt.loop) NextPre("next");
 
 		showCurrentState();
 		showNameSong();
 		showTime(amplitudeGraph.pos.x+amplitudeGraph.size.x/2-20, amplitudeGraph.pos.y+20);
 		slideVolume.show();
+
+		amplitudeGraph.run();
+		fftGraph.run();
+
+		if(isShowGuide)
+			showGuide();
+
+		for(var i = 0; i < buts.length; i++)
+			buts[i].run();
+		animationAvatar(); // show image at play button (demo)
+
+	} else {
+		fill(random(255), random(255), random(255));
+		ellipse(width/2+random(-100, 100), height/2+random(-50, 50), 16, 16);
 	}
-
-	for(var i = 0; i < buts.length; i++)
-		buts[i].run();
-
-	animationAvatar(); // show image at play button (demo)
-
-	amplitudeGraph.run();
-	fftGraph.run();
-
-	if(isShowGuide)
-		showGuide();
 }
 
 function keyPressed(){
@@ -154,3 +164,4 @@ function windowResized() {
 
 	slideVolume.changeProperties(width/2, height/2-150, 200, 20);
 }
+

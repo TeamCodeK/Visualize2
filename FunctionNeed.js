@@ -56,12 +56,6 @@ function showTime(x, y){
 	text(m+":"+s +" / "+ Mi+":"+Se, x, y);
 }
 
-function showImageArtist(){
-	if(mouseX > buts[0].pos.x-buts[0].size.x/2 && mouseX < buts[0].pos.x+buts[0].size.x/2
-	&& mouseY > buts[0].pos.y-buts[0].size.y/2 && mouseY < buts[0].pos.y+buts[0].size.y/2)
-		image(imageSong, mouseX, mouseY);
-}
-
 function animationAvatar(){
 	if(mouseX > buts[0].pos.x-buts[0].size.x/2 && mouseX < buts[0].pos.x+buts[0].size.x/2
 	&& mouseY > buts[0].pos.y-buts[0].size.y/2 && mouseY < buts[0].pos.y+buts[0].size.y/2
@@ -142,7 +136,7 @@ function showGuide(){
 	
 	text('            HELP (press G : on / off)', x, y+=20);
 	stroke(color('rgb(150, 150, 150)'));
-	text('You can DRAG to this web:', x, y+=20);
+	text('You can DRAG to this web one file:', x, y+=20);
 	text('   + music to play (mp3, mp4, m4a, ogg..)', x, y+=20)
 	text('   + image to change background', x, y+=20);
 	text('       B :     change back ground auto', x, y+=20);
@@ -153,18 +147,4 @@ function showGuide(){
 	text('      Space :  play / pause', x, y+=20);
 	text('   Left-Right arrow : jump 5s', x, y+=20);
 	textAlign(CENTER, CENTER);
-}
-
-function getChromeVersion () {
-    var pieces = navigator.userAgent.match(/Chrom(?:e|ium)\/([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)/);
-    if (pieces == null || pieces.length != 5) {
-        return undefined;
-    }
-    pieces = pieces.map(piece => parseInt(piece, 10));
-    return {
-        major: pieces[1],
-        minor: pieces[2],
-        build: pieces[3],
-        patch: pieces[4]
-    };
 }
