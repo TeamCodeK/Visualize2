@@ -27,6 +27,7 @@ function createFirstAll(){
 	myAudio.autoplay(true);	
 	myAudio.loop(true);
 	myAudio.volume(slideVolume.val);
+	myAudio.onended(function(){NextPre('next');});
 	myAudio.connect(p5.soundOut);
 
 	// get data from web ang .. PLAY it
@@ -77,7 +78,6 @@ function setup() {
 function draw(){
 	if(jsonWeb_song_Now){
 		image(backG, width/2, height/2, width, height, 0, 0, backG.width, backG.height);
-		if(myAudio.elt.ended && !myAudio.elt.loop) NextPre("next");
 
 		showCurrentState();
 		showNameSong();
