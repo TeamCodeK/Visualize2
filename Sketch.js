@@ -34,7 +34,7 @@ function createFirstAll(){
 	addSongFromIdZing(jsonFile_all_ID.data[songNow].id);
 
 	// prepare all object
-	backgNow = floor(random(1, 25));
+	backgNow = floor(random(1, 48));
 	backG = loadImage("image/BackG"+backgNow+".jpg");
 
 	amplitudeGraph = new AmplitudeGraph(width/2, height/2, width/2, height/4, 100, "Visualyze\nDemo");
