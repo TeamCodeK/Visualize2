@@ -45,7 +45,7 @@ function createFirstAll(){
 	buts.push(new buttonShape(width/2+75, height/2-220, 40 , 20, "noLoop", 10, function(){LoopMusic(myAudio.elt.loop);}));
 	buts.push(new buttonShape(width/2-75, height/2-220, 40 , 20, "Random", 10, function(){
 															var len = jsonFile_all_ID.data.length;
-															songNow += floor(random(0, len));
+															songNow += floor(random(1, len/2));
 															if(songNow >= len) songNow -= len;
 															if(songNow < 0) songNow += len;
 																addSongFromIdZing(jsonFile_all_ID.data[songNow].id);}));
@@ -96,7 +96,7 @@ function draw(){
 
 	} else {
 		fill(random(255), random(255), random(255));
-		ellipse(width/2+random(-100, 100), height/2+random(-50, 50), 16, 16);
+		ellipse(width/2+random(-100, 100), height/2+random(-100, 100), millis()/50, millis()/50);
 	}
 }
 

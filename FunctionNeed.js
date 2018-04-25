@@ -119,7 +119,11 @@ function getFileLocal(filein) {
 function changeBackGround(){
 	backgNow++;
 	if(backgNow > 25) backgNow = 1;
-	backG = loadImage("image/BackG"+backgNow+".jpg");
+	var newBackG = loadImage("image/BackG"+backgNow+".jpg",
+		function(dataNewImage){
+			backG = dataNewImage;
+		}
+	);
 }
 
 function showGuide(){
