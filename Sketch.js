@@ -11,6 +11,7 @@ var imageSong;
 
 var myAudio;
 var songNow;
+var nameSongNow;
 
 var jsonWeb_song_Now;
 var jsonFile_all_ID;
@@ -34,7 +35,9 @@ function setup() {
 	songNow = floor(random(0,jsonFile_all_ID.data.length));
 
 	// this code i learn from p5js.org and chrome console
+	// solution for load local file https://stackoverflow.com/questions/44167012/html5-audio-to-play-a-playlist-of-local-mp3-files 
 	myAudio = createAudio();
+	myAudio.id = "myAudio";
 	myAudio.autoplay(true);	
 	myAudio.loop(true);
 	myAudio.volume(slideVolume.val);

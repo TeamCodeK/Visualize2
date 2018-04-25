@@ -12,14 +12,16 @@ function SlideBar(x, y, w, h, min, max, firtValue) {
 		var ConvertValue = map(this.val, this.min, this.max, 0, this.size.x);
 		var valuePos = this.pos.x - this.size.x/2 + ConvertValue;
 		ellipse(valuePos, this.pos.y, this.size.y, this.size.y);
-		if(valuePos > this.pos.x - this.size.x/2 + this.size.y/2)
+
+		// check to not draw line when ellipse near end or begin
+		if(valuePos > this.pos.x - this.size.x/2 + this.size.y/2) 
 			line(this.pos.x-this.size.x/2, this.pos.y, valuePos-this.size.y/2 , this.pos.y);
 
 		if(valuePos < this.pos.x + this.size.x/2 - this.size.y/2){
 			stroke(255);
 			line(valuePos+this.size.y/2 , this.pos.y, this.pos.x+this.size.x/2, this.pos.y)
 		}
-		
+
 		// show box contain
 		if(showBoxContain){
 			strokeWeight(1);

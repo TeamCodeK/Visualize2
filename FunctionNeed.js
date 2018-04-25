@@ -4,6 +4,7 @@ function addSongFromIdZing(id){
  					var medialink = 'https:'+ dataJson.data.source[128];
  					jsonWeb_song_Now = dataJson;
  					myAudio.src = medialink;
+ 					nameSongNow = jsonWeb_song_Now.data.title + " - " + jsonWeb_song_Now.data.artists_names;
  					imageSong = loadImage(jsonWeb_song_Now.data.thumbnail);
  					console.log(jsonWeb_song_Now.data.title+"\n"+medialink);
  					console.log("avatar image\n"+jsonWeb_song_Now.data.thumbnail);
@@ -15,7 +16,7 @@ function showNameSong() {
 	stroke(255);	
 	noFill();
 	textSize(27);
-	text(jsonWeb_song_Now.data.title + " - " + jsonWeb_song_Now.data.artists_names, width/2, buts[0].pos.y-70);
+	text(nameSongNow, width/2, buts[0].pos.y-70);
 }
 
 function showCurrentState(){
@@ -105,11 +106,18 @@ function LoopMusic(isLooping){
 	}
 }
 
-function getFileLocal(file) {
-	if (file.type === 'image') {
-		backG = createImg(file.data).hide();
+function getFileLocal(filein) {
+	if (filein.type === 'image') {
+		backG = createImg(filein.data).hide();
 
-	}else{
+	} else if(filein.type === 'audio'){
+		var url = URL.createObjectURL(filein.file);
+        console.log(filein.file);
+        myAudio.src = url;
+        nameSongNow = filein.file.name.substring(0, filein.file.name.length-4);
+        imageSong = null;
+
+	} else{
 		alert('File type not support , Please choose another file');
 	}
 }
@@ -124,17 +132,19 @@ function showGuide(){
 	fill(color('rgba(51, 51, 51, 0.3)'));
 	strokeWeight(1);
 	stroke(255);
-	rect(145, height-105, 280, 200);
+	rect(145, height-130, 280, 230);
 	
 	textSize(15);
 	textAlign(LEFT, CENTER);
 	noFill();
 	var x = 10;
-	var y = height-205;
+	var y = height-250;
 	
 	text('            HELP (press G : on / off)', x, y+=20);
 	stroke(color('rgb(150, 150, 150)'));
-	text('DRAG image here to change background', x, y+=20);
+	text('You can DRAG to this web:', x, y+=20);
+	text('   + music to play (mp3, mp4, m4a, ogg..)', x, y+=20)
+	text('   + image to change background', x, y+=20);
 	text('       B :     change back ground auto', x, y+=20);
 	text('       C :     show / hide controls', x, y+=20);
 	text('       N :     next song', x, y+=20);
