@@ -118,7 +118,7 @@ function getFileLocal(filein) {
 
 function changeBackGround(){
 	backgNow++;
-	if(backgNow > 49) backgNow = 1;
+	if(backgNow > 48) backgNow = 1;
 	var newBackG = loadImage("image/BackG"+backgNow+".jpg",
 		function(dataNewImage){
 			backG = dataNewImage;
