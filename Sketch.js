@@ -27,7 +27,7 @@ function createFirstAll(){
 	myAudio.autoplay(true);	
 	myAudio.loop(true);
 	myAudio.volume(slideVolume.val);
-	myAudio.onended(function(){NextPre('next');});
+	myAudio.onended(function(){if(!myAudio.elt.loop) NextPre('next');});
 	myAudio.connect(p5.soundOut);
 
 	// get data from web ang .. PLAY it
